@@ -81,3 +81,102 @@ const players = [
   { "number": "133", "name": "アルナエス" },
   { "number": "134", "name": "コンスエグラ" },
 ];
+
+let score = 0;
+let timeLeft = 60;
+let timerId;
+let currentQuestion = null;
+
+const startBtn = document.getElementById("startBtn");
+const timerDiv = document.getElementById("timer");
+const scoreDiv = document.getElementById("score");
+const questionDiv = document.getElementById("question");
+const btn1 = document.getElementById("btn1");
+const btn2 = document.getElementById("btn2");
+const judgeDiv = document.getElementById("judge");
+const resultDiv = document.getElementById("result");
+const shareDiv = document.getElementById("share");
+const shareLink = document.getElementById("shareLink");
+
+startBtn.addEventListener("click", () => {
+  clearInterval(timerId);
+  score = 0;
+  timeLeft = 60;
+  scoreDiv.textContent = `得点: ${score}`;
+  timerDiv.textContent = `残り時間: ${timeLeft}秒`;
+  resultDiv.style.display = "none";
+  shareDiv.style.display = "none";
+
+  timerDiv.style.display = "block";
+  scoreDiv.style.display = "block";
+  questionDiv.style.display = "block";
+  btn1.style.display = "inline-block";
+  btn2.style.display = "inline-block";
+
+  nextQuestion();
+
+  timerId = setInterval(() => {
+    timeLeft--;
+    timerDiv.textContent = `残り時間: ${timeLeft}秒`;
+    if (timeLeft <= 0) {
+      clearInterval(timerId);
+      endGame();
+    }
+  }, 1000);
+});
+
+btn1.addEventListener("click", () => handleAnswer(btn1.textContent));
+btn2.addEventListener("click", () => handleAnswer(btn2.textContent));
+
+function nextQuestion() {
+  const correct = players[Math.floor(Math.random() * players.length)];
+  let wrong;
+  do {
+    wrong = players[Math.floor(Math.random() * players.length)];
+  } while (wrong.number === correct.number);
+
+  currentQuestion = correct;
+  questionDiv.textContent = `${correct.name} の背番号は？`;
+
+  const isFirst = Math.random() < 0.5;
+  btn1.textContent = isFirst ? correct.number : wrong.number;
+  btn2.textContent = isFirst ? wrong.number : correct.number;
+
+  btn1.disabled = false;
+  btn2.disabled = false;
+}
+
+function handleAnswer(selected) {
+  btn1.disabled = true;
+  btn2.disabled = true;
+
+  const isCorrect = selected === currentQuestion.number;
+  showJudge(isCorrect);
+  score += isCorrect ? 1 : -1;
+  scoreDiv.textContent = `得点: ${score}`;
+
+  setTimeout(() => {
+    nextQuestion();
+  }, 600);
+}
+
+function showJudge(isCorrect) {
+  judgeDiv.style.display = "block";
+  judgeDiv.textContent = isCorrect ? "⭕️" : "❌️";
+  judgeDiv.style.color = isCorrect ? "green" : "red";
+  setTimeout(() => {
+    judgeDiv.style.display = "none";
+  }, 500);
+}
+
+function endGame() {
+  questionDiv.style.display = "none";
+  btn1.style.display = "none";
+  btn2.style.display = "none";
+  resultDiv.style.display = "block";
+  resultDiv.textContent = `あなたのスコア: ${score} 点`;
+
+  const tweet = `TIGERS NUMBER QUIZ 2025\nスコア: ${score} 点\n#阪神タイガース #クイズ\n\nhttps://kkp-15.github.io/ninja-tigers-number-Q/?v=2\n\n@kkp_webninja`;
+  shareLink.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweet)}`;
+  shareDiv.style.display = "block";
+}
