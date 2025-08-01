@@ -176,7 +176,7 @@ function endGame() {
   resultDiv.style.display = "block";
   resultDiv.textContent = `あなたのスコア: ${score} 点`;
 
-  const tweet = `TIGERS NUMBER QUIZ 2025\nスコア: ${score} 点\n#阪神タイガース #クイズ\n\nhttps://tigers-q.kkpwebninja.com/?v=2\n\n@kkp_webninja`;
+  const tweet = `TIGERS NUMBER QUIZ 2025\nスコア: ${score} 点\n#阪神タイガース\n #クイズ\n\nhttps://tigers-q.kkpwebninja.com/?v=2\n\n@kkp_webninja`;
   shareLink.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweet)}`;
   shareDiv.style.display = "block";
 }
