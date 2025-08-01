@@ -8,11 +8,11 @@
   <!-- OGP設定 -->
   <meta property="og:title" content="TIGERS NUMBER QUIZ 2025" />
   <meta property="og:description" content="あなたは何人のタイガース選手の背番号を覚えている？1分間クイズに挑戦！" />
-  <meta property="og:image" content="https://kkpwebninja.com/images/tigers-Q.png" />
-  <meta property="og:url" content="https://tigers-q.kkpwebninja.com/" />
+  <meta property="og:image" content="https://kkp-15.github.io/ninja-tigers-number-Q/images/tigers-Q.png" />
+  <meta property="og:url" content="https://kkp-15.github.io/ninja-tigers-number-Q/" />
   <meta property="og:type" content="website" />
 
-  <!-- Google Analytics（任意） -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LM85GJN0L"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -23,16 +23,16 @@
 
   <style>
     body {
-      font-family: "Hiragino Kaku Gothic ProN", sans-serif;
+      font-family: "Arial", "Hiragino Kaku Gothic ProN", sans-serif;
       text-align: center;
-      margin: 0;
-      padding: 2rem;
-      background-color: #f5f5f5;
+      background-color: #fffef6;
+      color: #000;
+      padding: 20px;
     }
 
     h1 {
-      color: #000000;
-      font-size: 2.8rem;
+      color: #000;
+      font-size: 2em;
       margin-bottom: 1rem;
       background: #fdd835;
       display: inline-block;
@@ -41,130 +41,111 @@
       box-shadow: 2px 2px 0 #000;
     }
 
-    p {
-      font-size: 1.1rem;
-    }
-
-    input {
-      padding: 0.6rem;
-      font-size: 1.1rem;
-      width: 60%;
-      max-width: 300px;
-      border: 2px solid #000;
-      border-radius: 8px;
-    }
-
-    button {
-      padding: 0.6rem 1.2rem;
-      font-size: 1.1rem;
+    #startBtn {
+      font-size: 1.2em;
+      padding: 10px 20px;
       background-color: #fdd835;
       color: #000;
       border: 2px solid #000;
       border-radius: 8px;
       cursor: pointer;
-      transition: 0.2s;
     }
 
-    button:hover {
-      background-color: #000;
-      color: #fdd835;
+    #question {
+      font-size: 1.5em;
+      margin: 30px 0;
     }
 
-    #timer, #score {
-      font-size: 1.4rem;
-      margin-top: 1rem;
-      font-weight: bold;
-      color: #d32f2f;
-    }
-
-    #score {
-      color: #fdd835;
-      text-shadow: 1px 1px 2px #000;
-    }
-
-    #correct-answers {
-      margin-top: 1.5rem;
-      list-style: none;
-      padding: 0;
-      font-size: 1rem;
-    }
-
-    #result h2 {
-      color: #000;
-      background: #fdd835;
-      display: inline-block;
-      padding: 0.3em 1em;
+    .choice-btn {
+      font-size: 1.3em;
+      padding: 12px 30px;
+      margin: 10px;
+      border: 2px solid #000;
       border-radius: 10px;
+      background-color: #fff;
+      color: #000;
+      cursor: pointer;
+    }
+
+    #judge {
+      font-size: 3em;
+      margin: 20px 0;
+      height: 1.2em;
+    }
+
+    #result {
+      font-size: 1.5em;
+      margin-top: 30px;
+    }
+
+    #share {
+      margin-top: 20px;
+    }
+
+    #share a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 15px;
+      background-color: #1da1f2;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+
+    #share a:hover {
+      opacity: 0.8;
+    }
+
+    #timer,
+    #score {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin: 10px 0;
     }
 
     #footer {
-      margin-top: 4rem;
-      font-size: 0.9rem;
+      margin-top: 40px;
+      font-size: 0.9em;
       color: #555;
+      line-height: 1.6;
+    }
+
+    #footer a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    #footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <h1>TIGERS NUMBER QUIZ 2025</h1>
-  <p>あなたは何人のタイガース選手の背番号を覚えている？<br>1分間でできるだけ多く答えよう！</p>
-  
-  <div id="quiz-area">
-    <input type="text" id="answer" placeholder="選手名を入力..." />
-    <button onclick="checkAnswer()">送信</button>
-    <p id="timer">残り時間: 60秒</p>
-    <p id="score">スコア: 0</p>
-    <ul id="correct-answers"></ul>
+
+  <button id="startBtn">スタート</button>
+
+  <div id="timer" style="display: none;">残り時間: 60秒</div>
+  <div id="score" style="display: none;">得点: 0</div>
+  <div id="question" style="display: none;"></div>
+
+  <button id="btn1" class="choice-btn" style="display: none;"></button>
+  <button id="btn2" class="choice-btn" style="display: none;"></button>
+
+  <div id="judge"></div>
+
+  <div id="result" style="display: none;"></div>
+
+  <div id="share" style="display: none;">
+    <a id="shareLink" href="#" target="_blank" rel="noopener noreferrer">Xでシェア</a>
   </div>
-
-  <div id="result" style="display:none;">
-    <h2>結果発表🎉</h2>
-    <p id="final-score"></p>
-  </div>
-
-  <!-- main.js を読み込む -->
-  <script src="main.js"></script>
-  <script>
-    let score = 0;
-    let answered = new Set();
-    let time = 60;
-    const timerEl = document.getElementById("timer");
-    const scoreEl = document.getElementById("score");
-    const correctList = document.getElementById("correct-answers");
-
-    function checkAnswer() {
-      const input = document.getElementById("answer");
-      const name = input.value.trim();
-      const match = players.find(p => p.name === name && !answered.has(name));
-      if (match) {
-        answered.add(name);
-        score++;
-        scoreEl.textContent = "スコア: " + score;
-        const li = document.createElement("li");
-        li.textContent = `${match.name}（背番号${match.number}）`;
-        correctList.appendChild(li);
-      }
-      input.value = "";
-    }
-
-    function startTimer() {
-      const interval = setInterval(() => {
-        time--;
-        timerEl.textContent = `残り時間: ${time}秒`;
-        if (time <= 0) {
-          clearInterval(interval);
-          document.getElementById("quiz-area").style.display = "none";
-          document.getElementById("result").style.display = "block";
-          document.getElementById("final-score").textContent = `あなたのスコアは ${score} 点でした！`;
-        }
-      }, 1000);
-    }
-
-    startTimer();
-  </script>
 
   <div id="footer">
     X <a href="https://x.com/kkp_webninja" target="_blank">@kkp_webninja</a><br>
-    🏯 <a href="https://kkpwebninja.com" target="_blank">web忍者の本丸へ</a>
+    🏯 <a href="https://kkpwebninja.com" target="_blank">web忍者の本丸</a><br>
+    各巻物（アプリ）の入り口は本丸ページに集めているでござる。
   </div>
+
+  <script src="main.js"></script>
 </body>
 </html>
